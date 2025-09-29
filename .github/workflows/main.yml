@@ -20,16 +20,16 @@ jobs:
         run: yarn install
 
       # Optional iOS Build
-      # - name: iOS Build
-      #   run: |
-      #     cd ios
-      #     bundle install
-      #     bundle exec fastlane beta   # replace 'beta' with your iOS lane
-      # - name: Upload iOS Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ios-build
-      #     path: ios/build/*.ipa   # adjust path based on where fastlane outputs IPA
+      - name: iOS Build
+        run: |
+          cd ios
+          bundle install
+          bundle exec fastlane beta   # replace 'beta' with your iOS lane
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: ios/build/*.ipa   # adjust path based on where fastlane outputs IPA
 
       # Android Build with Fastlane
       - name: Android Build
