@@ -1,4 +1,4 @@
-app_identifier("org.reactjs.native.example.TestCI-CD") # The bundle identifier of your app
+app_identifier("com.clover.testci-cd") # The bundle identifier of your app
 apple_id("clovertech90@gmail.com") # Your Apple Developer Portal username
 
 itc_team_id("122388805") # App Store Connect Team ID

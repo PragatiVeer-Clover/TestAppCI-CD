@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios custom_lane
 ```
 
-Description of what the lane does
+Run custom tasks
 
 ### ios beta
 
@@ -29,7 +29,7 @@ Description of what the lane does
 [bundle exec] fastlane ios beta
 ```
 
-Beta iOS app
+Beta iOS app - Upload to TestFlight
 
 ### ios build
 
@@ -37,7 +37,15 @@ Beta iOS app
 [bundle exec] fastlane ios build
 ```
 
-Build iOS app
+Build iOS app for release or CI/CD
+
+### ios tests
+
+```sh
+[bundle exec] fastlane ios tests
+```
+
+Run unit tests
 
 ----
 

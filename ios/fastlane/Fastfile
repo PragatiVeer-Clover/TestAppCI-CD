@@ -1,33 +1,64 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+# Fastfile
+# Documentation: https://docs.fastlane.tools
 
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
+
+  ########################################################
+  # Custom Lane (for any custom tasks)
+  ########################################################
+  desc "Run custom tasks"
   lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
-  end
- desc "Beta iOS app"
-  lane :beta do
-  gradle(scheme: "TestCI_CD")
+    # Add custom actions here
+    # Example: run tests, clean, etc.
+    gym(scheme: "TestCI_CD")  # build your app using gym
   end
 
-  desc "Build iOS app"
+  ########################################################
+  # Beta Lane (Upload to TestFlight)
+  ########################################################
+  desc "Beta iOS app - Upload to TestFlight"
+  lane :beta do
+    # Fetch certificates & provisioning profiles via Match
+    match(type: "appstore")  # Use "development" or "adhoc" if needed
+
+    # Build the app
+    build_app(
+      scheme: "TestCI_CD",
+      export_method: "app-store"  # Can be: development, ad-hoc, enterprise
+    )
+
+    # Upload to TestFlight
+    upload_to_testflight
+  end
+
+  ########################################################
+  # Build Lane (Build iOS App)
+  ########################################################
+  desc "Build iOS app for release or CI/CD"
   lane :build do
-    build_app(scheme: "TestCI_CD")
-    # add actions here: https://docs.fastlane.tools/actions
+    # Fetch certificates & provisioning profiles
+    match(type: "appstore")  # or "development" for dev builds
+
+    # Build the app
+    build_app(
+      scheme: "TestCI_CD",
+      clean: true,
+      export_method: "app-store", # Change to "development" if needed
+      export_options: {
+        provisioningProfiles: {
+          "com.clover.testci-cd" => "Vishal Mestri"
+        }
+      }
+    )
+  end
+
+  ########################################################
+  # Optional: Lane for running tests
+  ########################################################
+  desc "Run unit tests"
+  lane :tests do
+    scan(scheme: "TestCI_CD")  # runs your tests
   end
 end
