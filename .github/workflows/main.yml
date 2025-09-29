@@ -1,4 +1,3 @@
-
 name: React Native CI/CD
 
 on:
@@ -20,12 +19,17 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      # # iOS Build with Fastlane
+      # Optional iOS Build
       # - name: iOS Build
       #   run: |
       #     cd ios
       #     bundle install
       #     bundle exec fastlane beta   # replace 'beta' with your iOS lane
+      # - name: Upload iOS Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ios-build
+      #     path: ios/build/*.ipa   # adjust path based on where fastlane outputs IPA
 
       # Android Build with Fastlane
       - name: Android Build
@@ -33,3 +37,9 @@ jobs:
           cd android
           bundle install
           bundle exec fastlane beta   # replace 'beta' with your Android lane
+
+      - name: Upload Android Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: android/app/build/outputs/**/*.{apk,aab}
