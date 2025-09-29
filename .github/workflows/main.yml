@@ -1,3 +1,4 @@
+
 name: React Native CI/CD
 
 on:
@@ -21,12 +22,12 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      # iOS Build with Fastlane
-      - name: iOS Build
-        run: |
-          cd ios
-          bundle install
-          bundle exec fastlane beta   # replace 'beta' with your iOS lane
+      # # iOS Build with Fastlane
+      # - name: iOS Build
+      #   run: |
+      #     cd ios
+      #     bundle install
+      #     bundle exec fastlane beta   # replace 'beta' with your iOS lane
 
       # Android Build with Fastlane
       - name: Android Build
